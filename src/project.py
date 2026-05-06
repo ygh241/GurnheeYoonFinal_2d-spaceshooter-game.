@@ -37,6 +37,7 @@ def main():
 
         
         update_bullets(bullets)
+        spawn_enemies(enemies)
         
 
         # draw
@@ -55,6 +56,16 @@ def update_bullets(bullets):
         if b.bottom < 0:
             bullets.remove(b)
 
+def spawn_enemies(enemies):
+    """Function 2: Handles randomized enemy spawning"""
+    if random.random() < 0.03: # 3 percentage of make it random
+        new_enemy = pygame.Rect(random.randint(0, WIDTH-40), -40, 40, 40)
+        enemies.append(new_enemy)
+    
+    for e in enemies[:]:
+        e.y += 4
+        if e.top > HEIGHT:
+            enemies.remove(e)
 
 if __name__ == "__main__":
     main()
