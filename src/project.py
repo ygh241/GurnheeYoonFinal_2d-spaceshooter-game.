@@ -18,6 +18,7 @@ def main():
     player = pygame.Rect(WIDTH//2, HEIGHT-60, 50, 40)
     bullets = []
     enemies = [] 
+    score = 0
     running = True
 
     while running:
@@ -39,6 +40,8 @@ def main():
         update_bullets(bullets)
         spawn_enemies(enemies)
         
+        # checking collisions with update
+        score = check_collisions(player, bullets, enemies, score)
 
         # draw
         pygame.draw.rect(screen, GREEN, player)
@@ -66,6 +69,27 @@ def spawn_enemies(enemies):
         e.y += 4
         if e.top > HEIGHT:
             enemies.remove(e)
+
+    
+def check_collisions(player, bullets, enemies, score):
+    """Function 3: Handles all collision detection"""
+    # Bullets coliding with enemy
+    for b in bullets[:]:
+        for e in enemies[:]:
+            if b.colliderect(e):
+                bullets.remove(b)
+                enemies.remove(e)
+                score += 10 # when the bullets collide with enemy add 10 points
+                break
+    
+    # player coliding with enemy
+    for e in enemies:
+        if e.colliderect(player):
+            print(f"GAME OVER! Final Score: {score}")
+            pygame.quit()
+            sys.exit()   #when player collide with enemy, automatically quit the window.
+
+    return score
 
 if __name__ == "__main__":
     main()
