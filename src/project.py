@@ -15,6 +15,12 @@ def main():
     pygame.display.set_caption("Space Shooter: Step 3")
     clock = pygame.time.Clock()
 
+    player_img = pygame.image.load("spaceship.png").convert_alpha()
+    enemy_img = pygame.image.load("enemy.png").convert_alpha()
+    enemy_img = pygame.transform.scale(enemy_img, (60, 60))
+    background_img = pygame.image.load("Background_space.png").convert()
+    background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
+
     player = pygame.Rect(WIDTH//2, HEIGHT-60, 50, 40)
     bullets = []
     enemies = [] 
@@ -22,7 +28,7 @@ def main():
     running = True
 
     while running:
-        screen.fill(BLACK)
+        screen.blit(background_img, (0, 0))
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,11 +50,19 @@ def main():
         score = check_collisions(player, bullets, enemies, score)
 
         # draw
-        pygame.draw.rect(screen, GREEN, player)
-        for b in bullets: 
+
+        screen.blit(player_img, (player.x, player.y))
+
+        for b in bullets:
             pygame.draw.rect(screen, WHITE, b)
+            
         for e in enemies:
-            pygame.draw.rect(screen, RED, e) #draw enemy
+            screen.blit(enemy_img, (e.x, e.y))
+
+        #show the score
+        font = pygame.font.Font(None, 36)
+        score_text = font.render(f"Score: {score}", True, WHITE)
+        screen.blit(score_text, (10, 10))
         
         pygame.display.flip()
         clock.tick(60)
@@ -62,7 +76,7 @@ def update_bullets(bullets):
 def spawn_enemies(enemies):
     """Function 2: Handles randomized enemy spawning"""
     if random.random() < 0.03: # 3 percentage of make it random
-        new_enemy = pygame.Rect(random.randint(0, WIDTH-40), -40, 40, 40)
+        new_enemy = pygame.Rect(random.randint(0, WIDTH-60), -60, 60, 60)
         enemies.append(new_enemy)
     
     for e in enemies[:]:
