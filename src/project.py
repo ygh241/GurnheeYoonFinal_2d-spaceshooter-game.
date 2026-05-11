@@ -21,7 +21,7 @@ def main():
     background_img = pygame.image.load("Background_space.png").convert()
     background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 
-    player = pygame.Rect(WIDTH//2, HEIGHT-60, 50, 40)
+    player = pygame.Rect(WIDTH//2, HEIGHT-60, 20, 20)
     bullets = []
     enemies = [] 
     game_over = False
@@ -64,7 +64,7 @@ def main():
             score, game_over = check_collisions(player, bullets, enemies, score)
 
             # draw player, bullets, and enemy
-            screen.blit(player_img, (player.x, player.y))
+            screen.blit(player_img, (player.x - 10, player.y- 5))
             for b in bullets: pygame.draw.rect(screen, WHITE, b)
             for e in enemies: screen.blit(enemy_img, (e.x, e.y))
         else:
