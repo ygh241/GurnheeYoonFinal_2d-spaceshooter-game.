@@ -1,5 +1,5 @@
 Final project: Retro 2d space shooter game
-Video link: https://www.youtube.com/watch?v=tl7acALzvFs
+Video link: https://youtu.be/ianHIqTSPAU
 About the game: This is a retro style shooter game, where players have to kill as many as enemies they can, since there are endless enemy waves.
 
 Key features: 
@@ -9,6 +9,9 @@ socre system: Each kill of an enemy, players will get 10 points. Once player col
 Full screen support: This game support fullscreen gameplay.
 Brutal health mechanism: A lot of space shooter game has helath bars, or defense system, but my game does not have them. Once player collide with enemy, the game is over, the score does not save, players will have to restart the game.
 
+choice of Design: The reason why I chose the retro style pixel graphic sprites is because I wanted to give players ab old 80's vibe game. I also chose to use 24x 14 for enemy, 42x42 pixel sprite for player ship, because The old games are basically pixelated, low resolutioned. 
+State managements: Instead of simply using `sys.exit()`, I implemented a `game_over` boolean state. This allows the game to pause and display a "Retry" prompt, enhancing the user experience compared to a sudden crash or exit.
+Optimization and efficiency: I used `convert_alpha()` for sprites to ensure transparency was handled efficiently, improving the game's performance more optimized.
 
 File included:  
 project.py: It is the main python code that running the whole game. I donwloaded and imported pygame, random, and sys library.
